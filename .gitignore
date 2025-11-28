@@ -1,0 +1,45 @@
+# === TERRAFORM STATE FILES ===
+*.tfstate
+*.tfstate.*
+terraform.tfstate
+terraform.tfstate.backup
+
+# Local .terraform directories
+.terraform/
+.terraform/*
+
+# Crash logs
+crash.log
+crash.*.log
+
+# === TFVARS (Valores sensibles) ===
+*.tfvars
+*.auto.tfvars
+*.tfvars.json
+
+# === PLAN FILES ===
+*.plan
+
+# === SENSITIVE FILES ===
+secret.tf
+secrets.auto.tfvars
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# === IDE / OS FILES ===
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Node / NPM (si usás tooling)
+node_modules/
+
+# Logs
+*.log
+
+# Zip outputs
+*.zip
