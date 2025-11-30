@@ -56,6 +56,75 @@ cd $APP_DIR
 # -----------------------------------------------
 cd $APP_DIR/backend
 
+#Creo la carpeta para guardar el ldif de dev
+sudo mkdir -p ldif-dev
+
+#Creo el ldif de inicializacion
+sudo tee ldif-dev/init.ldif > /dev/null <<EOF
+# OU para usuarios
+dn: ou=users,dc=arreglaya,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: users
+
+# Usuarios
+dn: uid=admin,ou=users,dc=arreglaya,dc=com
+objectClass: inetOrgPerson
+cn: Admin
+sn: Admin
+uid: admin
+userPassword: {SSHA}adminhash
+
+dn: uid=provider1,ou=users,dc=arreglaya,dc=com
+objectClass: inetOrgPerson
+cn: Provider1
+sn: Uno
+uid: provider1
+userPassword: {SSHA}providerhash
+
+dn: uid=client1,ou=users,dc=arreglaya,dc=com
+objectClass: inetOrgPerson
+cn: Client1
+sn: Uno
+uid: client1
+userPassword: {SSHA}clienthash
+
+dn: uid=client2,ou=users,dc=arreglaya,dc=com
+objectClass: inetOrgPerson
+cn: Client2
+sn: Dos
+uid: client2
+userPassword: {SSHA}client2hash
+
+# OU para grupos
+dn: ou=groups,dc=arreglaya,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+
+# Grupo de administradores
+dn: cn=admins,ou=groups,dc=arreglaya,dc=com
+objectClass: top
+objectClass: groupOfNames
+cn: admins
+member: uid=admin,ou=users,dc=arreglaya,dc=com
+
+# Grupo de proveedores
+dn: cn=providers,ou=groups,dc=arreglaya,dc=com
+objectClass: top
+objectClass: groupOfNames
+cn: providers
+member: uid=provider1,ou=users,dc=arreglaya,dc=com
+
+# Grupo de clientes
+dn: cn=clients,ou=groups,dc=arreglaya,dc=com
+objectClass: top
+objectClass: groupOfNames
+cn: clients
+member: uid=client1,ou=users,dc=arreglaya,dc=com
+member: uid=client2,ou=users,dc=arreglaya,dc=com
+EOF
+
 # Crear el archivo .env.prod con los valores de PROD
 sudo tee .env.prod > /dev/null <<EOF
 # --- POSTGRES ---
